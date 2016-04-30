@@ -3,48 +3,42 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
-
-	// EDITABLE OMIT
-
+	//начало изменяемого кода
 	guesses := make([]string, 0)
-	guesses = append(guesses, "00-00-00")
-	guesses = append(guesses, "01-00-00")
-	guesses = append(guesses, "02-00-00")
 
-	// UNEDITABLE OMIT
+	// Agent Getter:
+	// Brute force attack code
+	for x := 0; x < 100; x++ {
+		for y := 0; y < 100; y++ {
+			xString := strconv.Itoa(x)
+			yString := strconv.Itoa(y)
+			xPadding := strings.Repeat("0", 2-len(xString))
+			yPadding := strings.Repeat("0", 2-len(yString))
+			code := xPadding + xString + "-" + yPadding + yString
+			if isCorrect(code) {
+				guesses = append(guesses, code) //проверяем код до добавления его в массив
+			}
+			// someone is coming
+		}
+	}
+	//конец изменяемого кода
+
 	response := validateCode(guesses)
-	fmt.Println("Code:", response)
+	fmt.Println(guesses)
 }
 
 func validateCode(codes []string) string {
 	for _, c := range codes {
+		if countAttempts() > 3 {
+			return "3 Wrong Guesses - LOCKED!"
+		}
 		if isCorrect(c) {
-			return c
+			return "Code: " + c + ". Welcome Epoch."
 		}
 	}
-	// Denies more than three attempts
-	return foilBruteForce()
-}
-
-// END OMIT
-
-func isCorrect(guess string) bool {
-	code := "11-10-09"
-	if guess == code {
-		return true
-	}
-	return false
-}
-
-var attempts int = 0
-
-func foilBruteForce() string {
-	attempts++
-	if attempts > 3 {
-		return "LOCKED: Tried more than three times"
-	}
-	return "Wrong Guess" + strconv.Itoa(attempts)
+	return "Incorrect code."
 }
