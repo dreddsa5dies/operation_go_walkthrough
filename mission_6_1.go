@@ -31,6 +31,7 @@ func main() {
 }
 
 //----------------------------------------
+// Изменять только тут
 
 func setupLasers() [7]Laser {
 	var lasers [7]Laser
