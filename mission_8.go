@@ -19,6 +19,8 @@ func main() {
 	//------------------------------------------------
 	// Изменять только тут
 
+	canStart := func(password string) bool { return true }
+
 	//------------------------------------------------
 
 	canIStart := canStart("wrongpassword")
