@@ -31,26 +31,27 @@ func main() {
 }
 
 //----------------------------------------
+// Изменять только тут
 
-func setupLasers() [7]Laser {
-	var lasers [7]Laser
-	lasers[0] = Laser{1, true}
-	lasers[1] = Laser{2, true}
-	lasers[2] = Laser{3, true}
-	lasers[3] = Laser{4, true}
-	lasers[4] = Laser{5, true}
-	lasers[5] = Laser{6, true}
-	lasers[6] = Laser{7, true}
+func setupLasers() [7]*Laser {
+	var lasers [7]*Laser
+	for i := 0; i < 7; i++ {
+		lasers[i] = &Laser{i, true}
+	}
 	return lasers
 }
 
-func testGrid(laserGrid LaserGrid) {
+func testGrid(laserGrid LaserGrid) LaserGrid {
 	fmt.Println("Status:", laserGrid.status)
+	for _, laser := range laserGrid.lasers {
+		laser.isRunning = false
+	}
+	return laserGrid
 }
 
 type LaserGrid struct {
 	status string
-	lasers [7]Laser
+	lasers [7]*Laser
 }
 
 type Laser struct {
