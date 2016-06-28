@@ -46,7 +46,7 @@ func main() {
 // Изменять только тут
 
 func setButton(x int, sequence *[]Button) {
-
+	fmt.Println(Button{buttons[x]})
 	//------------------------------------------------
 
 	new_button := Button{buttons[x]}
