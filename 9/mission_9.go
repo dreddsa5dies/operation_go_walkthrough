@@ -46,7 +46,19 @@ func main() {
 // Изменять только тут
 
 func setButton(x int, sequence *[]Button) {
-	fmt.Println(Button{buttons[x]})
+	switch {
+	case x == 0:
+		buttons[x] = "blue" 
+	case x == 1:
+		buttons[x] = "red" 
+	case x == 2:
+		buttons[x] = "purple" 
+	case x == 3:
+		buttons[x] = "yellow" 
+	case x == 4:
+		buttons[x] = "green" 
+	}
+	
 	//------------------------------------------------
 
 	new_button := Button{buttons[x]}
