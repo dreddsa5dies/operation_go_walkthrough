@@ -23,6 +23,8 @@ func main() {
 
 	//------------------------------------------------
 	// Изменять только тут
+	// с это struct [gallonsPerMin enabled Valve]
+	// c это {700 false {800 true}}
 
 	v := reflect.ValueOf(c)
 
@@ -33,32 +35,10 @@ func main() {
 	}
 
 	fmt.Println(values) // [gallonsPerMin enabled Valve]
+	// Valve тоже состоит из gallonsPerMin enabled
 
-	k := reflect.ValueOf(&c).Elem()
-	px := k.Addr().Interface().(*bool)
-	*px = true
-
-	// fmt.Println(px.CanSet())
-	// fmt.Println(px)
-
-	// это не работает
-	// -------------------
-
-	// switch v.Kind() {
-	// case reflect.Struct:
-	// 	for i := 0; i < v.NumField(); i++ {
-	// 		field := fmt.Sprintf("%s", v.Type().Field(i).Name)
-	// 		fmt.Println(v.Field(i))
-	// 		fmt.Println(field)
-	// 	}
-	// default:
-	// 	fmt.Println("беда")
-	// }
-
-	//(*px).gallonsPerMin = 0
-	//px.Set(reflect.ValueOf(value)) ??
-	//(*px).emergencyShutoff() = true
-	//c это struct - {700 false {800 true}}
+	c.enabled = true
+	c.Valve.enabled = false
 
 	//------------------------------------------------
 
