@@ -20,18 +20,19 @@ import (
 func main() {
 	c := initControls()
 	c.gallonsPerMin = 700
+
 	//------------------------------------------------
 	// Изменять только тут
 
-	v := reflect.ValueOf(&c.gallonsPerMin)
-	fmt.Println(v.Type)
+	v := reflect.ValueOf(&c)
+	fmt.Println(v)
 	px := v.Elem()
 	fmt.Println(px.CanSet())
-	px.Set(reflect.ValueOf(500))
 	fmt.Println(px)
-	fmt.Println(c.gallonsPerMin)
+
+	// это не работает
 	//(*px).gallonsPerMin = 0
-	//px.Set(reflect.ValueOf(value))
+	//px.Set(reflect.ValueOf(value)) ??
 	//(*px).emergencyShutoff() = true
 	//c это struct - {700 false {800 true}}
 
