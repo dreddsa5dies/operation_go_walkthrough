@@ -24,13 +24,37 @@ func main() {
 	//------------------------------------------------
 	// Изменять только тут
 
-	v := reflect.ValueOf(&c)
-	fmt.Println(v)
-	px := v.Elem()
-	fmt.Println(px.CanSet())
-	fmt.Println(px)
+	v := reflect.ValueOf(c)
+
+	values := make([]interface{}, v.NumField())
+
+	for i := 0; i < v.NumField(); i++ {
+		values[i] = v.Type().Field(i).Name
+	}
+
+	fmt.Println(values) // [gallonsPerMin enabled Valve]
+
+	k := reflect.ValueOf(&c).Elem()
+	px := k.Addr().Interface().(*bool)
+	*px = true
+
+	// fmt.Println(px.CanSet())
+	// fmt.Println(px)
 
 	// это не работает
+	// -------------------
+
+	// switch v.Kind() {
+	// case reflect.Struct:
+	// 	for i := 0; i < v.NumField(); i++ {
+	// 		field := fmt.Sprintf("%s", v.Type().Field(i).Name)
+	// 		fmt.Println(v.Field(i))
+	// 		fmt.Println(field)
+	// 	}
+	// default:
+	// 	fmt.Println("беда")
+	// }
+
 	//(*px).gallonsPerMin = 0
 	//px.Set(reflect.ValueOf(value)) ??
 	//(*px).emergencyShutoff() = true
