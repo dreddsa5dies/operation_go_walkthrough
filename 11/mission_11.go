@@ -80,6 +80,9 @@ type Signal struct {
 }
 
 func createSignal(realSignal Signal, fakeSignal Signal) Signal {
+	fakeSignal.Message = realSignal.Message
+	fakeSignal.Priority = realSignal.Priority
+	fakeSignal.Location = realSignal.Location
 	return fakeSignal
 }
 
