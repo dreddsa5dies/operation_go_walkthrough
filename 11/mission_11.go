@@ -71,6 +71,9 @@ func main() {
 
 //----------------------------------------------------
 // Изменять тут
+// так понятно, что требуется отправка сообщения,
+// чтобы бало интерпретировано func interceptSignal() как fakeSignal
+// а func receiveSignal() как realSignal
 
 type Signal struct {
 	Name     string
@@ -80,11 +83,16 @@ type Signal struct {
 }
 
 func createSignal(realSignal Signal, fakeSignal Signal) Signal {
-	fakeSignal.Message = realSignal.Message
-	fakeSignal.Priority = realSignal.Priority
-	fakeSignal.Location = realSignal.Location
 	return fakeSignal
 }
+
+// не работает
+// func createSignal(realSignal Signal, fakeSignal Signal) Signal {
+// 	fakeSignal.Message = realSignal.Message
+// 	fakeSignal.Priority = realSignal.Priority
+// 	fakeSignal.Location = realSignal.Location
+// 	return fakeSignal
+// }
 
 //---------------------------------------------------
 
