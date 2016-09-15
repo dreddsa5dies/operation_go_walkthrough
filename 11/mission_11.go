@@ -75,6 +75,8 @@ func main() {
 // чтобы бало интерпретировано func interceptSignal() как fakeSignal
 // а func receiveSignal() как realSignal
 
+// receiveSignal работает с data []byte и подключает json.Unmarshal(data, &signal)
+
 type Signal struct {
 	Name     string
 	Priority int
@@ -87,6 +89,7 @@ func createSignal(realSignal Signal, fakeSignal Signal) Signal {
 }
 
 // не работает
+// и Эпочу и Директору отправляется одно и то же сообщение
 // func createSignal(realSignal Signal, fakeSignal Signal) Signal {
 // 	fakeSignal.Message = realSignal.Message
 // 	fakeSignal.Priority = realSignal.Priority
