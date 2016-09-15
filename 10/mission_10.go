@@ -34,10 +34,18 @@ func main() {
 		values[i] = v.Type().Field(i).Name
 	}
 
+<<<<<<< HEAD
 	fmt.Println(values)
 
 	k := reflect.ValueOf(&c).Elem()
 	fmt.Println(k)
+=======
+	fmt.Println(values) // [gallonsPerMin enabled Valve]
+	// Valve тоже состоит из gallonsPerMin enabled
+
+	c.enabled = true
+	c.Valve.enabled = false
+>>>>>>> fd8b1589b107dd733c725556a003d32116babe73
 
 	//------------------------------------------------
 
