@@ -86,6 +86,7 @@ type Signal struct {
 	Location string
 }
 
+// создаем JSON
 var realSigJSON = []byte(`[
 		{"Name": "Agent Getter", "Priority": 10, "Message": "Rand is Epoch. We need immediate backup for arrest and extraction.", "Location": "16.7333,-169.5274"}
 	]`)
