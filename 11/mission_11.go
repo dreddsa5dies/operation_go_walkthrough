@@ -71,38 +71,40 @@ func main() {
 
 //----------------------------------------------------
 // Изменять тут
-// так понятно, что требуется отправка сообщения,
-// чтобы было интерпретировано func interceptSignal() как fakeSignal
-// а func receiveSignal() как realSignal
-// receiveSignal работает с data []byte и подключает json.Unmarshal(data, &signal)
-// нужно чтобы json.Marshal(signal) приобрело вид realSignal
-// для это в структуру Signal надо добавить данные так, что функцией
-// json.Marshal(signal) и json.Unmarshal преобразовало realSignal и fakeSignal
 
-type Signal struct {
+type signal struct {
 	Name     string
 	Priority int
 	Message  string
 	Location string
 }
 
-// создаем JSON
-var realSigJSON = []byte(`[
-		{"Name": "Agent Getter", "Priority": 10, "Message": "Rand is Epoch. We need immediate backup for arrest and extraction.", "Location": "16.7333,-169.5274"}
-	]`)
-
-func createSignal(realSignal Signal, fakeSignal Signal) Signal {
-	return fakeSignal
+type Signal struct {
+	Name       string
+	Priority   int
+	Message    string
+	Location   string
+	realSignal signal
 }
 
-// не работает
-// и Эпочу и Директору отправляется одно и то же сообщение
-// func createSignal(realSignal Signal, fakeSignal Signal) Signal {
-// 	fakeSignal.Message = realSignal.Message
-// 	fakeSignal.Priority = realSignal.Priority
-// 	fakeSignal.Location = realSignal.Location
-// 	return fakeSignal
-// }
+func createSignal(realSignal Signal, fakeSignal Signal) Signal {
+	return Signal{
+		Name:     fakeSignal.Name,
+		Priority: fakeSignal.Priority,
+		Message:  fakeSignal.Message,
+		Location: fakeSignal.Location,
+		realSignal: signal{
+			Name:     realSignal.Name,
+			Priority: realSignal.Priority,
+			Message:  realSignal.Message,
+			Location: realSignal.Location,
+		},
+	}
+}
+
+func (s Signal) MarshalJSON() ([]byte, error) {
+	return json.Marshal(s.realSignal)
+}
 
 //---------------------------------------------------
 
