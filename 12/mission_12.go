@@ -73,16 +73,9 @@ func (files Files) Less(i, j int) bool {
 
 func setCommands() []string {
 	commands := make([]string, 10)
-	commands[0] = "sort"
-	commands[1] = "sort"
-	commands[2] = "sort"
-	commands[3] = "sort"
-	commands[4] = "sort"
-	commands[5] = "sort"
-	commands[6] = "sort"
-	commands[7] = "sort"
-	commands[8] = "sort"
-	commands[9] = "sort"
+	for i := 0; i < len(commands)-1; i++ {
+		commands[i] = "flip_all"
+	}
 
 	return commands
 }
